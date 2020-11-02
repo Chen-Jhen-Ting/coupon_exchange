@@ -1,10 +1,10 @@
 class CouponController < ApplicationController
   def new
-    @coupon = current_user.build_coupon
+    @coupon = Coupon.new
   end
 
   def create
-    @coupon = current_user.build_coupon(coupon_params)
+    @coupon = Coupon.new(coupon_params)
     
     if @coupon.save
       redirect_to root_path, notice: "已成功兌換，您的兌換卷序號為 #{ @coupon.uuid }"
