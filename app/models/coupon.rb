@@ -1,10 +1,10 @@
 class Coupon < ApplicationRecord
   belongs_to :user
 
-  validates :name , presence: {message: '不可為空' }
-  validates :twid , presence: {message: '不可為空' }
-  validates :phone, presence: {message: '不可為空' }
-  
+  validates :name , presence: {message: '姓名不可為空' }
+  validates :phone, presence: {message: '手機號碼不可為空' }
+  validates :twid, taiwanese_id: {message: "您的身分證字號有誤，請確認後重新輸入"}
+
   before_create :create_uuid
   
   private
