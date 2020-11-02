@@ -1,6 +1,6 @@
-<% if @coupon.errors.any? %>
+<% if @coupon .errors.any? %>
   <ul>
-  <% @coupon.errors.messages.values.each do |message| %>
+  <% @coupon .errors.full_messages.each do |message| %>
     <li><%= message %></li>
   <% end %>
   </ul>
