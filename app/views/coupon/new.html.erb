@@ -1,7 +1,7 @@
 <% if @coupon.errors.any? %>
   <ul>
   <% @coupon.errors.messages.values.each do |message| %>
-    <li><%= message %></li>
+    <li><%= message[0] %></li>
   <% end %>
   </ul>
 <% end %>
