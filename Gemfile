@@ -59,6 +59,3 @@ gem 'devise'
 
 # twid validates
 gem 'taiwanese_id_validator'
-
-# fake data
-gem 'faker', '~> 1.6', '>= 1.6.3'
