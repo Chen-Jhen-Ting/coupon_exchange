@@ -3,11 +3,9 @@ require 'taiwanese_id_validator/twid_generator'
 
 RSpec.describe CouponController, type: :controller do
   let(:user) do
-    pwd = Faker::String.random
     User.create(
       email: Faker::Internet.email,
-      password: pwd
-      # password_confirmation: pwd
+      password: Faker::String.random
     )
   end
 

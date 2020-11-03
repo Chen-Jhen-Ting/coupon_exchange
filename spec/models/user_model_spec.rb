@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'validation' do
+  describe 'User validation' do
     context 'with email and password' do
       it 'should be ok' do
         user1 = User.new(
