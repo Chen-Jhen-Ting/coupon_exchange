@@ -32,6 +32,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
+  # fake data
+  gem 'faker', '~> 1.6', '>= 1.6.3'
 end
 
 group :development do
@@ -60,5 +62,3 @@ gem 'devise'
 # twid validates
 gem 'taiwanese_id_validator'
 
-# fake data
-gem 'faker', '~> 1.6', '>= 1.6.3'
