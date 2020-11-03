@@ -2,63 +2,67 @@ require 'rails_helper'
 require 'taiwanese_id_validator/twid_generator'
 
 RSpec.describe Coupon, type: :model do
-  
-  it 'cannot have comments' do   
-    user1 = User.create(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    coupon1 = user1.build_coupon(
-      name: Faker::Name.name  ,
-      phone: Faker::PhoneNumber.cell_phone,
-      twid: TwidGenerator.generate
-    )
+  describe 'Coupon validation' do
+    let(:user) do
+      User.create(
+        email: Faker::Internet.email,
+        password: Faker::String.random
+      )
+    end
+    context 'with name, phone and twid' do
+      it 'should be ok' do
+        coupon = user.build_coupon(
+          name: Faker::Name.name  ,
+          phone: Faker::PhoneNumber.cell_phone,
+          twid: TwidGenerator.generate
+        )
+        expect(coupon).to be_valid
+      end
+    end
 
-    user2 = User.create(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    coupon2 = user2.build_coupon(
-      name: "",
-      phone: Faker::PhoneNumber.cell_phone,
-      twid: TwidGenerator.generate
-    )
+    context 'without name' do
+      it 'should not be ok' do
+        coupon = user.build_coupon(
+          name: "",
+          phone: Faker::PhoneNumber.cell_phone,
+          twid: TwidGenerator.generate
+        )
+        expect(coupon).not_to be_valid
+      end
+    end
 
-    user3 = User.create(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    coupon3 = user3.build_coupon(
-      name: "",
-      phone: "",
-      twid: TwidGenerator.generate
-    )
+    context 'without phone' do
+      it 'should not be ok' do
+        coupon = user.build_coupon(
+          name: Faker::Name.name ,
+          phone: "",
+          twid: TwidGenerator.generate
+        )
+        expect(coupon).not_to be_valid
+      end
+    end
 
-    user4 = User.create(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    coupon4 = user4.build_coupon(
-      name: "",
-      phone: "",
-      twid: ""
-    )
+    context 'without twid' do
+      it 'should not be ok' do
+        coupon = user.build_coupon(
+          name: Faker::Name.name ,
+          phone: Faker::PhoneNumber.cell_phone,
+          twid: ""
+        )
+        expect(coupon).not_to be_valid
+      end
+    end
 
-    user5 = User.create(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    coupon5 = user5.build_coupon(
-      name: Faker::Name.name  ,
-      phone: Faker::PhoneNumber.cell_phone,
-      twid: 'FFFFFFF'
-    )
-
-    expect(coupon1).to be_valid
-    expect(coupon2).not_to be_valid
-    expect(coupon3).not_to be_valid
-    expect(coupon4).not_to be_valid
-    expect(coupon5).not_to be_valid
+    context 'with incorrect twid' do
+      it 'should not be ok' do
+        coupon = user.build_coupon(
+          name: Faker::Name.name ,
+          phone: Faker::PhoneNumber.cell_phone,
+          twid: "fffffff"
+        )
+        expect(coupon).not_to be_valid
+      end
+    end
   end
 
   it 'can be created' do
