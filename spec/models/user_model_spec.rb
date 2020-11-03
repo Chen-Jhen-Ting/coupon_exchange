@@ -1,17 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'is valid with a email, password' do
-    user1 = User.new(
-      email: Faker::Internet.email,
-      password: Faker::String.random
-    )
-    user2 = User.new(
-      email: "",
-      password: Faker::String.random
-    )
-    expect(user1).to be_valid
-    expect(user2).not_to be_valid
+  describe 'validation' do
+    context 'with email and password' do
+      it 'should be ok' do
+        user1 = User.new(
+          email: Faker::Internet.email,
+          password: Faker::String.random
+        )
+        expect(user1).to be_valid
+      end
+    end
+
+    context 'without email' do
+      it 'should not be ok' do
+        user = User.new(
+          email: "",
+          password: Faker::String.random
+        )
+        expect(user).not_to be_valid
+      end
+    end
+
+    context 'without password' do
+      it 'should not be ok' do
+        user = User.new(
+          email: Faker::Internet.email,
+          password: ""
+        )
+        expect(user).not_to be_valid
+      end
+    end
+    
+    context 'without email and password' do
+      it 'should not be ok' do
+        user = User.new(
+          email: "",
+          password: ""
+        )
+        expect(user).not_to be_valid
+      end
+    end
   end
 
   it 'can be created' do
